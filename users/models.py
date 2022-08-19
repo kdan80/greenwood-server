@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
-class GreenwoodUserManager(BaseUserManager):
+class UserManager(BaseUserManager):
     def create_user(self, email, username, password, **other_fields):
         if not email:
             raise ValueError(_('Users must have a valid email address'))
@@ -32,7 +32,7 @@ class GreenwoodUserManager(BaseUserManager):
         return user
 
 
-class GreenwoodUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     
     email = models.EmailField(
         _('email address'), 
@@ -63,7 +63,7 @@ class GreenwoodUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
-    objects = GreenwoodUserManager()
+    objects = UserManager()
 
     def __str__(self):
         return self.username
