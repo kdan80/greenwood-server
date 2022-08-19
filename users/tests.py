@@ -14,11 +14,11 @@ class UserTests(TestCase):
         self.assertTrue(superuser.is_active)
         self.assertEqual(str(superuser), 'test-username')
 
-        # with self.assertRaises(ValueError):
-        #     db.objects.create_superuser(email='test@gmail.com', username='test-username', password='test-password', is_superuser=False)
+        with self.assertRaises(ValueError):
+            db.objects.create_superuser(email='', username='test-username', password='test-password')
 
-        # with self.assertRaises(ValueError):
-        #     db.objects.create_superuser(email='test@gmail.com', username='test-username', password='test-password', is_staff=False)
+        with self.assertRaises(ValueError):
+            db.objects.create_superuser(email='test@gmail.com', username='', password='test-password')
 
     def test_new_user(self):
         db = get_user_model()
@@ -30,5 +30,8 @@ class UserTests(TestCase):
         self.assertFalse(user.is_staff)
         self.assertTrue(user.is_active)
 
-        # with self.assertRaises(ValueError):
-        #     db.objects.create_user(email='', username='test-username', password='test-password')
+        with self.assertRaises(ValueError):
+            db.objects.create_user(email='', username='test-username', password='test-password')
+        
+        with self.assertRaises(ValueError):
+            db.objects.create_superuser(email='test@gmail.com', username='', password='test-password')

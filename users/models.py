@@ -46,12 +46,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     date_created = models.DateTimeField(
-        verbose_name='date created', 
+        _('date created'), 
         auto_now_add=True
     )
 
     last_login = models.DateTimeField(
-        verbose_name='last login', 
+        _('last login'), 
         auto_now=True
     )
 
